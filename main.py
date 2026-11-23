@@ -14,6 +14,17 @@ SENTENCE = (
     "no coding, no risk, just your idea come to life."
 )
 
+# Determinism contract: the pitch is a fixed literal — no clock, no RNG,
+# no input reading. The only I/O is the single output write in main().
+# A change to SENTENCE must keep the output byte-identical across runs.
+assert SENTENCE, "pitch sentence must be non-empty"
+assert ". " not in SENTENCE and SENTENCE.rstrip().endswith("."), (
+    "pitch must be exactly one sentence"
+)
+assert len(SENTENCE) <= 240, (
+    f"pitch must be at most 240 chars, got {len(SENTENCE)}"
+)
+
 
 def main() -> None:
     out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
